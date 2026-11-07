@@ -18,6 +18,7 @@ What I am defending against is mostly **my own agents making a confident mistake
 | Credential leakage into transcripts | Key printed to a terminal log; next key captured in a screenshot; both had to be revoked | `hooks/guard_secrets.py`, `docs/SECRETS.md` |
 | Unverified completion claims | Subagent says "done" with no path, commit, URL or test output | `hooks/guard_subagent_evidence.py` |
 | Irreversible destruction of agent memory | Memory store, CLAUDE.md, startup hooks and maintenance tasks all sealed in one session | `hooks/guard_memory.py` |
+| Subagent publishes on its own | Subagent told to assemble a repo locally and not push created the public repo and pushed; personal commit metadata was exposed for ~15 minutes | `hooks/guard_publish.py` |
 | Hallucinated facts in replies | Invented a hackathon final and prize; "never earned anything" when a payout existed | `factgate/fact_gate.py` |
 | Main-thread context sprawl | Orchestrator greps and browses itself instead of delegating | `hooks/block_mainline_search.py` |
 | Network exposure of local services | Services bound to 0.0.0.0 with the host firewall off; a forgotten quick tunnel to an unauthenticated app | `docs/HARDENING.md` (audit done, fixes planned) |
@@ -31,6 +32,7 @@ hooks/              PreToolUse / SubagentStop hooks (Python, stdlib only)
   guard_kill.py               no kill-by-name; kill-by-PID only for allowlisted PIDs
   guard_secrets.py            no credential literals on command lines; no displaying credential files
   guard_memory.py             no deleting/moving the protected memory store without a cooling-off flag
+  guard_publish.py            subagents may not push / create repos / deploy; main thread only
   guard_subagent_evidence.py  subagent "done" reports must carry evidence
   block_mainline_search.py    main thread delegates search/browse to subagents (model-gated)
   block_mainloop_execution.py auto-allows read-only main-loop Bash commands

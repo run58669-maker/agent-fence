@@ -30,6 +30,12 @@
         "hooks": [
           { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_memory.py\"", "timeout": 5 }
         ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_publish.py\"", "timeout": 5 }
+        ]
       }
     ],
     "Stop": [
