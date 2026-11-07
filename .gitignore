@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+factgate/logs/
+*.jsonl
+hooks/kill_allowlist.txt
+hooks/memory_delete_ok.flag
+hooks/mode
+# working files from a separate task, never publish
+_cvp_form/
+# Private task briefs, audit reports and temporary backups
+/_*_task.md
+/_sanitize*
+/SANITIZATION_REPORT.md
+*.bak-*

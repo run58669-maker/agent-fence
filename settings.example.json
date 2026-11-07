@@ -1,0 +1,52 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/block_mainloop_execution.py\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Grep|Glob|WebFetch|WebSearch|Bash|PowerShell|Read",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/block_mainline_search.py\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_kill.py\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell|Read",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_secrets.py\"", "timeout": 5 }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_memory.py\"", "timeout": 5 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/factgate/fact_gate.py\" --mode log", "timeout": 10 }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "py \"<HOME>/.claude/agent-fence/hooks/guard_subagent_evidence.py\"", "timeout": 5 }
+        ]
+      }
+    ]
+  }
+}
